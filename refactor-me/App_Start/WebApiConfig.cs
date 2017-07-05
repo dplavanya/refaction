@@ -7,8 +7,8 @@ using Autofac.Integration.WebApi;
 using Microsoft.Practices.ServiceLocation;
 using refactor_me.Infrastructure;
 using refactor_me.Services;
-using Refactorme.Repository.Contracts;
 using Refactorme.Repository;
+using Refactorme.Repository.Contracts;
 
 namespace refactor_me
 {
@@ -65,7 +65,8 @@ namespace refactor_me
 
             //Services
 
-
+            builder.RegisterType<ProductService>().As<IProductService>();
+            builder.RegisterType<ProductRepository>().As<IProductRepository>();
 
             var container = builder.Build();
             var csl = new AutofacServiceLocator(container);
