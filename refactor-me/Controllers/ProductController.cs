@@ -6,7 +6,7 @@ using refactor_me.Models;
 namespace refactor_me.Controllers
 {
     [RoutePrefix("products")]
-    public class ProductsController : ApiController
+    public class ProductController : ApiController
     {
         [Route]
         [HttpGet]
