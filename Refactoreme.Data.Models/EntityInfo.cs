@@ -8,17 +8,13 @@ using Newtonsoft.Json;
 
 namespace Refactoreme.Data.Models
 {
-    public class Product : EntityInfo
+    public abstract class EntityInfo
     {
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        public decimal Price { get; set; }
-
-        public decimal DeliveryPrice { get; set; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
         [JsonIgnore]
-        public bool IsNew { get; }
+        public DateTime CreatedDate { get; set; }
+        [JsonIgnore]
+        public DateTime ModifiedDate { get; set; }
     }
 }

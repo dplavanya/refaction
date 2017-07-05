@@ -8,11 +8,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Refactoreme.Data.Models
 {
-    public class ProductOption
+    public class ProductOption : EntityInfo
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
-
         public Guid ProductId { get; set; }
 
         [ForeignKey(nameof(ProductId))]
