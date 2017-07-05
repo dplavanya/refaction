@@ -123,3 +123,9 @@ Desktop.ini
 **/packages/OctoPack*/license.txt
 **/packages/OctoPack*/tools/Install.ps1
 **/packages/OctoPack*/tools/Uninstall.ps1
+/Core/Refactoreme.Core.Web/ServerCorsPolicy.cs
+/Core/Refactoreme.Core.Web/Refactoreme.Core.Web.csproj
+/Core/Refactoreme.Core.Web/packages.config
+/Core/Refactoreme.Core.Web/Properties/AssemblyInfo.cs
+/Core/Refactoreme.Core.Web/Properties
+/Core/Refactoreme.Core.Web
