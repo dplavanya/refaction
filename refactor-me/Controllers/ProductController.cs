@@ -1,67 +1,103 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Results;
 using refactor_me.Models;
+using refactor_me.Services;
+using Refactoreme.Data.Models;
+using ProductOption = refactor_me.Models.ProductOption;
 
 namespace refactor_me.Controllers
 {
     [RoutePrefix("products")]
     public class ProductController : ApiController
     {
-        [Route]
-        [HttpGet]
-        public Products GetAll()
+        private readonly IProductService _productService;
+        public ProductController(IProductService productService)
         {
-            return new Products();
+            _productService = productService;
         }
 
         [Route]
         [HttpGet]
-        public Products SearchByName(string name)
+        public async Task<IHttpActionResult> GetAll()
         {
-            return new Products(name);
+            var products = await _productService.GetAllProductsAsync();
+
+            if (products.Any())
+            {
+                return Ok(products);
+            }
+            return NotFound();
+        }
+
+        [Route]
+        [HttpGet]
+        public async Task<IHttpActionResult> SearchByName(string name)
+        {
+            var products = await _productService.SearchProductsByNameAsync(name);
+            if (products.Any())
+            {
+                return Ok(products);
+            }
+            return NotFound();
+
         }
 
         [Route("{id}")]
         [HttpGet]
-        public Product GetProduct(Guid id)
+        public async Task<IHttpActionResult> GetProduct(Guid id)
         {
-            var product = new Product(id);
-            if (product.IsNew)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return product;
+            var product = await _productService.GetProductByIdAsync(id);
+            if (product != null)
+            {
+                return Ok(product);
+            }
+            return NotFound();
         }
 
         [Route]
         [HttpPost]
-        public void Create(Product product)
+        public async Task<IHttpActionResult> Create(Product product)
         {
-            product.Save();
+            var newProduct = await _productService.CreateProductAsync(product);
+
+            if (product != null)
+            {
+                return Ok(newProduct);
+            }
+
+            return InternalServerError();
         }
 
         [Route("{id}")]
         [HttpPut]
-        public void Update(Guid id, Product product)
+        public async Task<IHttpActionResult> Update(Guid id, Product product)
         {
-            var orig = new Product(id)
+            var updatedProduct = await _productService.UpdateProductAsync(id, product);
+            if (updatedProduct != null)
             {
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                DeliveryPrice = product.DeliveryPrice
-            };
-
-            if (!orig.IsNew)
-                orig.Save();
+                return Ok(updatedProduct);
+            }
+            return InternalServerError();
         }
 
         [Route("{id}")]
         [HttpDelete]
-        public void Delete(Guid id)
+        public async Task<IHttpActionResult> Delete(Guid id)
         {
-            var product = new Product(id);
-            product.Delete();
+            var result = await _productService.DeleteProductAsync(id);
+            if (result)
+            {
+                return Ok();
+            }
+            return InternalServerError();
         }
 
         [Route("{productId}/options")]

@@ -125,7 +125,6 @@
     <Compile Include="Services\IProductService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -136,7 +135,20 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  
+  <ItemGroup>
+    <ProjectReference Include="..\Refactoreme.Data.Models\Refactoreme.Data.Models.csproj">
+      <Project>{1640D0BA-42B3-4B45-A242-F20460FF74A3}</Project>
+      <Name>Refactoreme.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Refactorme.Repository.Contracts\Refactorme.Repository.Contracts.csproj">
+      <Project>{96ED93A6-DA48-4F11-9C10-E402A40BB701}</Project>
+      <Name>Refactorme.Repository.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Refactorme.Repository\Refactorme.Repository.csproj">
+      <Project>{2788E1B0-6D1D-46D6-B4E1-20D3072AC425}</Project>
+      <Name>Refactorme.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

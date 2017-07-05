@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,17 +10,17 @@ namespace refactor_me.Services
 {
     public interface IProductService
     {
-        Task<IList<Product>> GetAllProductsAsync();
+        Task<IList<Refactoreme.Data.Models.Product>> GetAllProductsAsync();
 
-        Task<Product> GetProductByIdAsync(Guid id);
+        Task<Refactoreme.Data.Models.Product> GetProductByIdAsync(Guid id);
 
-        Task<IList<Product>> SearchProductsByNameAsync(string name);
+        Task<IList<Refactoreme.Data.Models.Product>> SearchProductsByNameAsync(string name);
 
-        Task<Product> CreateProductAsync(Product product);
+        Task<Refactoreme.Data.Models.Product> CreateProductAsync(Refactoreme.Data.Models.Product product);
 
-        Task<Product> UpdateProductAsync(Guid id, Product product);
+        Task<Refactoreme.Data.Models.Product> UpdateProductAsync(Guid id, Refactoreme.Data.Models.Product product);
 
-        Task<Product> DeleteProductAsync(Guid id);
+        Task<bool> DeleteProductAsync(Guid id);
 
 
     }

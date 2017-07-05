@@ -4,39 +4,46 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using refactor_me.Models;
+using Refactorme.Repository.Contracts;
 
 namespace refactor_me.Services
 {
     public class ProductService : IProductService
     {
-        public Task<Product> CreateProductAsync(Product product)
+        private readonly IProductRepository _productRepository;
+
+        public ProductService(IProductRepository productRepository)
         {
-            throw new NotImplementedException();
+            _productRepository = productRepository;
+        }
+        public async Task<Refactoreme.Data.Models.Product> CreateProductAsync(Refactoreme.Data.Models.Product product)
+        {
+            return await _productRepository.CreateProductAsync(product);
         }
 
-        public Task<Product> DeleteProductAsync(Guid id)
+        public async Task<bool> DeleteProductAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _productRepository.DeleteProductAsync(id);
         }
 
-        public Task<IList<Product>> GetAllProductsAsync()
+        public async Task<IList<Refactoreme.Data.Models.Product>> GetAllProductsAsync()
         {
-            throw new NotImplementedException();
+            return await _productRepository.GetAllProductsAsync();
         }
 
-        public Task<Product> GetProductByIdAsync(Guid id)
+        public async Task<Refactoreme.Data.Models.Product> GetProductByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _productRepository.GetProductByIdAsync(id);
         }
 
-        public Task<IList<Product>> SearchProductsByNameAsync(string name)
+        public async Task<IList<Refactoreme.Data.Models.Product>> SearchProductsByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            return await _productRepository.SearchProductsByNameAsync(name);
         }
 
-        public Task<Product> UpdateProductAsync(Guid id, Product product)
+        public async Task<Refactoreme.Data.Models.Product> UpdateProductAsync(Guid id, Refactoreme.Data.Models.Product product)
         {
-            throw new NotImplementedException();
+            return await _productRepository.UpdateProductAsync(id, product);
         }
     }
 }

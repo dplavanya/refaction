@@ -25,7 +25,7 @@ namespace Refactorme.Repository
             throw new NotImplementedException();
         }
 
-        public Task<Product> DeleteProductAsync(Guid id)
+        public Task<bool> DeleteProductAsync(Guid id)
         {
             throw new NotImplementedException();
         }

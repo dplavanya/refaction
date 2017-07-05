@@ -19,6 +19,6 @@ namespace Refactorme.Repository.Contracts
 
         Task<Product> UpdateProductAsync(Guid id, Product product);
 
-        Task<Product> DeleteProductAsync(Guid id);
+        Task<bool> DeleteProductAsync(Guid id);
     }
 }
