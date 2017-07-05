@@ -122,8 +122,10 @@
     <Compile Include="Infrastructure\ServerCorsPolicy.cs" />
     <Compile Include="Models\Helpers.cs" />
     <Compile Include="Models\Products.cs" />
+    <Compile Include="Services\IProductService.cs" />
+    <Compile Include="Services\ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-   
+
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
