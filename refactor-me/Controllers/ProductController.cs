@@ -66,6 +66,7 @@ namespace refactor_me.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [Route]
         [HttpPost]
         public async Task<IHttpActionResult> Create(Product product)
@@ -96,6 +97,7 @@ namespace refactor_me.Controllers
             return InternalServerError();
         }
 
+        [Authorize]
         [Route("{id}")]
         [HttpPut]
         public async Task<IHttpActionResult> Update(Guid id, Product product)
@@ -124,6 +126,7 @@ namespace refactor_me.Controllers
             return InternalServerError();
         }
 
+        [Authorize]
         [Route("{id}")]
         [HttpDelete]
         public async Task<IHttpActionResult> Delete(Guid id)
@@ -175,6 +178,7 @@ namespace refactor_me.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [Route("{productId}/options")]
         [HttpPost]
         public async Task<IHttpActionResult> CreateOption(Guid productId, ProductOption option)
@@ -204,6 +208,7 @@ namespace refactor_me.Controllers
             return InternalServerError();
         }
 
+        [Authorize]
         [Route("{productId}/options/{id}")]
         [HttpPut]
         public async Task<IHttpActionResult> UpdateOption(Guid productId, ProductOption option, Guid id)
@@ -238,6 +243,7 @@ namespace refactor_me.Controllers
             return InternalServerError();
         }
 
+        [Authorize]
         [Route("{productId}/options/{id}")]
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteOption(Guid productId, Guid id)
