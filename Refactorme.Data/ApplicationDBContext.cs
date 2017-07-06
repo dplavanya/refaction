@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Refactorme.Data
 {
-    internal class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
 
@@ -26,6 +26,19 @@ namespace Refactorme.Data
 
         public override int SaveChanges()
         {
+            AddEntityInfo();
+
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync()
+        {
+            AddEntityInfo();
+            return base.SaveChangesAsync();
+        }
+
+        private void AddEntityInfo()
+        {
             var selectedEntityList = ChangeTracker.Entries().Where(x => x.State == EntityState.Added || x.State == EntityState.Modified);
 
             var currentDateTime = DateTime.Now;
@@ -38,8 +51,6 @@ namespace Refactorme.Data
                 }
                 ((EntityInfo)selectedEntity.Entity).ModifiedDate = currentDateTime;
             }
-
-            return base.SaveChanges();
         }
 
     }

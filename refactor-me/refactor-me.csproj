@@ -55,6 +55,14 @@
       <HintPath>..\packages\Autofac.WebApi2.4.0.1\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -139,6 +147,10 @@
     <ProjectReference Include="..\Refactoreme.Data.Models\Refactoreme.Data.Models.csproj">
       <Project>{1640D0BA-42B3-4B45-A242-F20460FF74A3}</Project>
       <Name>Refactoreme.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Refactorme.Data\Refactorme.Data.csproj">
+      <Project>{EBA2013F-2F6C-48C7-92C7-27285199AAF9}</Project>
+      <Name>Refactorme.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Refactorme.Repository.Contracts\Refactorme.Repository.Contracts.csproj">
       <Project>{96ED93A6-DA48-4F11-9C10-E402A40BB701}</Project>

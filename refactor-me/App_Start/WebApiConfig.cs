@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
+using System.Data.Entity;
 using System.Reflection;
 using System.Web.Http;
 using Autofac;
@@ -9,6 +11,7 @@ using refactor_me.Infrastructure;
 using refactor_me.Services;
 using Refactorme.Repository;
 using Refactorme.Repository.Contracts;
+using Refactorme.Data;
 
 namespace refactor_me
 {
