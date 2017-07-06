@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refactorme.Repository", "Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refactorme.Data", "Refactorme.Data\Refactorme.Data.csproj", "{EBA2013F-2F6C-48C7-92C7-27285199AAF9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refactorme.Logging", "Refactorme.Logging\Refactorme.Logging.csproj", "{34484A1B-096E-43CE-B6B9-A5ED56CC3EB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{EBA2013F-2F6C-48C7-92C7-27285199AAF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBA2013F-2F6C-48C7-92C7-27285199AAF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBA2013F-2F6C-48C7-92C7-27285199AAF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34484A1B-096E-43CE-B6B9-A5ED56CC3EB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34484A1B-096E-43CE-B6B9-A5ED56CC3EB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34484A1B-096E-43CE-B6B9-A5ED56CC3EB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34484A1B-096E-43CE-B6B9-A5ED56CC3EB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

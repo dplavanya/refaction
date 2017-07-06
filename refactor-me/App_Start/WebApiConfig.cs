@@ -12,6 +12,7 @@ using refactor_me.Services;
 using Refactorme.Repository;
 using Refactorme.Repository.Contracts;
 using Refactorme.Data;
+using Refactorme.Logging;
 
 namespace refactor_me
 {
@@ -74,6 +75,9 @@ namespace refactor_me
             //Repositories
             builder.RegisterType<ProductRepository>().As<IProductRepository>();
             builder.RegisterType<ProductOptionRepository>().As<IProductOptionRepository>();
+
+            // Logging
+            builder.RegisterType<Log4NetLogger>().As<ILogger>().SingleInstance();
 
             var container = builder.Build();
             var csl = new AutofacServiceLocator(container);

@@ -10,6 +10,7 @@ using System.Web.Http.Results;
 using refactor_me.Models;
 using refactor_me.Services;
 using Refactoreme.Data.Models;
+using Refactorme.Logging;
 
 namespace refactor_me.Controllers
 {
@@ -18,11 +19,13 @@ namespace refactor_me.Controllers
     {
         private readonly IProductService _productService;
         private readonly IProductOptionService _productOptionService;
+        private readonly ILogger _logger;
 
-        public ProductController(IProductService productService, IProductOptionService productOptionService)
+        public ProductController(IProductService productService, IProductOptionService productOptionService, ILogger logger)
         {
             _productService = productService;
             _productOptionService = productOptionService;
+            _logger = logger;
         }
 
         [Route]
@@ -68,11 +71,27 @@ namespace refactor_me.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Create(Product product)
         {
-            var newProduct = await _productService.CreateProductAsync(product);
-
-            if (product != null)
+            try
             {
-                return Ok(newProduct);
+
+                var newProduct = await _productService.CreateProductAsync(product);
+
+                if (product != null)
+                {
+                    return Ok(newProduct);
+                }
+
+                var logmessage =
+                    $"Create Product Failed in WebApi: {Environment.NewLine}Method: {Request.Method}{Environment.NewLine}URI: {Request.RequestUri}";
+                _logger.Error(logmessage, (int)ApplicationEvent.CreateProductFailedEvent, null);
+            }
+
+            catch (Exception e)
+            {
+                var message =
+                    $"Unhandled Exception occured in the Web API:{Environment.NewLine}Method: {Request.Method}{Environment.NewLine}URI: {Request.RequestUri} Exception: {e.GetType()}{Environment.NewLine}ExceptionMessage: {e.Message}{Environment.NewLine}Stack Trace: {e.StackTrace}";
+
+                _logger.Error(message, (int)ApplicationEvent.UnhandledApplicationException, e);
             }
 
             return InternalServerError();
@@ -82,10 +101,26 @@ namespace refactor_me.Controllers
         [HttpPut]
         public async Task<IHttpActionResult> Update(Guid id, Product product)
         {
-            var updatedProduct = await _productService.UpdateProductAsync(id, product);
-            if (updatedProduct != null)
+            try
             {
-                return Ok(updatedProduct);
+
+                var updatedProduct = await _productService.UpdateProductAsync(id, product);
+                if (updatedProduct != null)
+                {
+                    return Ok(updatedProduct);
+                }
+
+                var logmessage =
+                    $"Update Product Failed in WebApi: {Environment.NewLine}Method: {Request.Method}{Environment.NewLine}URI: {Request.RequestUri}";
+                _logger.Error(logmessage, (int)ApplicationEvent.UpdateProductFailedEvent, null);
+            }
+
+            catch (Exception e)
+            {
+                var message =
+                    $"Unhandled Exception occured in the Web API:{Environment.NewLine}Method: {Request.Method}{Environment.NewLine}URI: {Request.RequestUri} Exception: {e.GetType()}{Environment.NewLine}ExceptionMessage: {e.Message}{Environment.NewLine}Stack Trace: {e.StackTrace}";
+
+                _logger.Error(message, (int)ApplicationEvent.UnhandledApplicationException, e);
             }
             return InternalServerError();
         }
@@ -94,10 +129,25 @@ namespace refactor_me.Controllers
         [HttpDelete]
         public async Task<IHttpActionResult> Delete(Guid id)
         {
-            var result = await _productService.DeleteProductAsync(id);
-            if (result)
+            try
             {
-                return Ok();
+                var result = await _productService.DeleteProductAsync(id);
+                if (result)
+                {
+                    return Ok();
+                }
+
+                var logmessage =
+                    $"Delete Product Failed in WebApi: {Environment.NewLine}Method: {Request.Method}{Environment.NewLine}URI: {Request.RequestUri}";
+                _logger.Error(logmessage, (int)ApplicationEvent.DeleteProductFailedEvent, null);
+            }
+
+            catch (Exception e)
+            {
+                var message =
+                    $"Unhandled Exception occured in the Web API:{Environment.NewLine}Method: {Request.Method}{Environment.NewLine}URI: {Request.RequestUri} Exception: {e.GetType()}{Environment.NewLine}ExceptionMessage: {e.Message}{Environment.NewLine}Stack Trace: {e.StackTrace}";
+
+                _logger.Error(message, (int)ApplicationEvent.UnhandledApplicationException, e);
             }
             return InternalServerError();
         }
@@ -130,12 +180,27 @@ namespace refactor_me.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> CreateOption(Guid productId, ProductOption option)
         {
-            option.ProductId = productId;
-
-            var newProductOption = await _productOptionService.CreateProductOptionAsync(option);
-            if (newProductOption != null)
+            try
             {
-                return Ok(newProductOption);
+                option.ProductId = productId;
+
+                var newProductOption = await _productOptionService.CreateProductOptionAsync(option);
+                if (newProductOption != null)
+                {
+                    return Ok(newProductOption);
+                }
+
+                var logmessage =
+                    $"Create Option Failed in WebApi: {Environment.NewLine}Method: {Request.Method}{Environment.NewLine}URI: {Request.RequestUri}";
+                _logger.Error(logmessage, (int)ApplicationEvent.CreateOptionFailedEvent, null);
+
+            }
+            catch (Exception e)
+            {
+                var message =
+                    $"Unhandled Exception occured in the Web API:{Environment.NewLine}Method: {Request.Method}{Environment.NewLine}URI: {Request.RequestUri} Exception: {e.GetType()}{Environment.NewLine}ExceptionMessage: {e.Message}{Environment.NewLine}Stack Trace: {e.StackTrace}";
+
+                _logger.Error(message, (int)ApplicationEvent.UnhandledApplicationException, e);
             }
             return InternalServerError();
         }
@@ -144,15 +209,31 @@ namespace refactor_me.Controllers
         [HttpPut]
         public async Task<IHttpActionResult> UpdateOption(Guid productId, ProductOption option, Guid id)
         {
-            option.ProductId = productId;
-            option.Id = id;
-
-
-            var updatedOption = await _productOptionService.UpdateProductOptionAsync(option);
-
-            if (updatedOption != null)
+            try
             {
-                return Ok(updatedOption);
+                option.ProductId = productId;
+                option.Id = id;
+
+
+                var updatedOption = await _productOptionService.UpdateProductOptionAsync(option);
+
+
+                if (updatedOption != null)
+                {
+                    return Ok(updatedOption);
+                }
+                var logmessage =
+                    $"Update Option Failed in WebApi: {Environment.NewLine}Method: {Request.Method}{Environment.NewLine}URI: {Request.RequestUri}";
+                _logger.Error(logmessage, (int)ApplicationEvent.UpdateOptionFailedEvent, null);
+
+            }
+
+            catch (Exception e)
+            {
+                var message =
+                    $"Unhandled Exception occured in the Web API:{Environment.NewLine}Method: {Request.Method}{Environment.NewLine}URI: {Request.RequestUri} Exception: {e.GetType()}{Environment.NewLine}ExceptionMessage: {e.Message}{Environment.NewLine}Stack Trace: {e.StackTrace}";
+
+                _logger.Error(message, (int)ApplicationEvent.UnhandledApplicationException, e);
             }
 
             return InternalServerError();
@@ -162,11 +243,26 @@ namespace refactor_me.Controllers
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteOption(Guid productId, Guid id)
         {
-            var result = await _productOptionService.DeleteProductOptionAsync(productId, id);
-            if (result)
+            try
             {
-                return Ok();
+                var result = await _productOptionService.DeleteProductOptionAsync(productId, id);
+                if (result)
+                {
+                    return Ok();
+                }
+                var logmessage =
+                    $"Delete Option Failed in WebApi: {Environment.NewLine}Method: {Request.Method}{Environment.NewLine}URI: {Request.RequestUri}";
+                _logger.Error(logmessage, (int)ApplicationEvent.DeleteOptionFailedEvent, null);
             }
+
+            catch (Exception e)
+            {
+                var message =
+                    $"Unhandled Exception occured in the Web API:{Environment.NewLine}Method: {Request.Method}{Environment.NewLine}URI: {Request.RequestUri} Exception: {e.GetType()}{Environment.NewLine}ExceptionMessage: {e.Message}{Environment.NewLine}Stack Trace: {e.StackTrace}";
+
+                _logger.Error(message, (int)ApplicationEvent.UnhandledApplicationException, e);
+            }
+
             return InternalServerError();
         }
     }

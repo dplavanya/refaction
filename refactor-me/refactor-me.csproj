@@ -138,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="log4net.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -153,6 +154,10 @@
     <ProjectReference Include="..\Refactorme.Data\Refactorme.Data.csproj">
       <Project>{EBA2013F-2F6C-48C7-92C7-27285199AAF9}</Project>
       <Name>Refactorme.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Refactorme.Logging\Refactorme.Logging.csproj">
+      <Project>{34484A1B-096E-43CE-B6B9-A5ED56CC3EB2}</Project>
+      <Name>Refactorme.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\Refactorme.Repository.Contracts\Refactorme.Repository.Contracts.csproj">
       <Project>{96ED93A6-DA48-4F11-9C10-E402A40BB701}</Project>
