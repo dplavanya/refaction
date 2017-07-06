@@ -7,7 +7,6 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
-using refactor_me.Models;
 using refactor_me.Services;
 using Refactoreme.Data.Models;
 using Refactorme.Logging;

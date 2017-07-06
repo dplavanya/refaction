@@ -128,8 +128,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\ServerCorsPolicy.cs" />
-    <Compile Include="Models\Helpers.cs" />
-    <Compile Include="Models\Products.cs" />
     <Compile Include="Services\IProductOptionService.cs" />
     <Compile Include="Services\IProductService.cs" />
     <Compile Include="Services\ProductOptionService.cs" />
