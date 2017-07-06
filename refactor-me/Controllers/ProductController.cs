@@ -10,7 +10,6 @@ using System.Web.Http.Results;
 using refactor_me.Models;
 using refactor_me.Services;
 using Refactoreme.Data.Models;
-using ProductOption = refactor_me.Models.ProductOption;
 
 namespace refactor_me.Controllers
 {
@@ -18,9 +17,12 @@ namespace refactor_me.Controllers
     public class ProductController : ApiController
     {
         private readonly IProductService _productService;
-        public ProductController(IProductService productService)
+        private readonly IProductOptionService _productOptionService;
+
+        public ProductController(IProductService productService, IProductOptionService productOptionService)
         {
             _productService = productService;
+            _productOptionService = productOptionService;
         }
 
         [Route]
@@ -102,50 +104,70 @@ namespace refactor_me.Controllers
 
         [Route("{productId}/options")]
         [HttpGet]
-        public ProductOptions GetOptions(Guid productId)
+        public async Task<IHttpActionResult> GetProductOptions(Guid productId)
         {
-            return new ProductOptions(productId);
+            var productOptions = await _productOptionService.GetAllProductOptionsByProductIdAsync(productId);
+            if (productOptions.Any())
+            {
+                return Ok(productOptions);
+            }
+            return NotFound();
         }
 
         [Route("{productId}/options/{id}")]
         [HttpGet]
-        public ProductOption GetOption(Guid productId, Guid id)
+        public async Task<IHttpActionResult> GetProductOption(Guid productId, Guid id)
         {
-            var option = new ProductOption(id);
-            if (option.IsNew)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-
-            return option;
+            var productOption = await _productOptionService.GetProductOptionByOptionIdAsync(productId, id);
+            if (productOption != null)
+            {
+                return Ok(productOption);
+            }
+            return NotFound();
         }
 
         [Route("{productId}/options")]
         [HttpPost]
-        public void CreateOption(Guid productId, ProductOption option)
+        public async Task<IHttpActionResult> CreateOption(Guid productId, ProductOption option)
         {
             option.ProductId = productId;
-            option.Save();
+
+            var newProductOption = await _productOptionService.CreateProductOptionAsync(option);
+            if (newProductOption != null)
+            {
+                return Ok(newProductOption);
+            }
+            return InternalServerError();
         }
 
         [Route("{productId}/options/{id}")]
         [HttpPut]
-        public void UpdateOption(Guid id, ProductOption option)
+        public async Task<IHttpActionResult> UpdateOption(Guid productId, ProductOption option, Guid id)
         {
-            var orig = new ProductOption(id)
-            {
-                Name = option.Name,
-                Description = option.Description
-            };
+            option.ProductId = productId;
+            option.Id = id;
 
-            if (!orig.IsNew)
-                orig.Save();
+
+            var updatedOption = await _productOptionService.UpdateProductOptionAsync(option);
+
+            if (updatedOption != null)
+            {
+                return Ok(updatedOption);
+            }
+
+            return InternalServerError();
         }
 
         [Route("{productId}/options/{id}")]
         [HttpDelete]
-        public void DeleteOption(Guid id)
+        public async Task<IHttpActionResult> DeleteOption(Guid productId, Guid id)
         {
-            var opt = new ProductOption(id);
-            opt.Delete();
+            var result = await _productOptionService.DeleteProductOptionAsync(productId, id);
+            if (result)
+            {
+                return Ok();
+            }
+            return InternalServerError();
         }
     }
 }

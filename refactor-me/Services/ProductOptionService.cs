@@ -4,29 +4,46 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Refactoreme.Data.Models;
+using Refactorme.Repository.Contracts;
 
 namespace refactor_me.Services
 {
     public class ProductOptionService : IProductOptionService
     {
-        public Task<IList<ProductOption>> GetAllProductOptionsByProductIdAsync(Guid productId)
+        private readonly IProductOptionRepository _productOptionRepository;
+
+
+        public ProductOptionService(IProductOptionRepository productOptionRepository)
         {
-            throw new NotImplementedException();
+            _productOptionRepository = productOptionRepository;
         }
 
-        public Task<ProductOption> GetProductOptionByOptionIdAsync(Guid productId, Guid optionId)
+        public async Task<IList<ProductOption>> GetAllProductOptionsByProductIdAsync(Guid productId)
         {
-            throw new NotImplementedException();
+            return await _productOptionRepository.GetAllProductOptionsByProductIdAsync(productId);
         }
 
-        public Task<ProductOption> UpdateProductOptionAsync(ProductOption productOption)
+        public async Task<ProductOption> GetProductOptionByOptionIdAsync(Guid productId, Guid optionId)
         {
-            throw new NotImplementedException();
+            return await _productOptionRepository.GetProductOptionByOptionIdAsync(productId, optionId);
+
         }
 
-        public Task<bool> DeleteProductOptionAsync(Guid productId, Guid optionId)
+        public async Task<ProductOption> UpdateProductOptionAsync(ProductOption productOption)
         {
-            throw new NotImplementedException();
+            return await _productOptionRepository.UpdateProductOptionAsync(productOption);
         }
+
+        public async Task<bool> DeleteProductOptionAsync(Guid productId, Guid optionId)
+        {
+            return await _productOptionRepository.DeleteProductOptionAsync(productId, optionId);
+        }
+
+        public async Task<ProductOption> CreateProductOptionAsync(ProductOption productOption)
+        {
+            return await _productOptionRepository.CreateProductOptionAsync(productOption);
+        }
+
     }
+
 }

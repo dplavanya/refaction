@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Refactoreme.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using System.Web;
-using Refactoreme.Data.Models;
 
-namespace refactor_me.Services
+namespace Refactorme.Repository.Contracts
 {
-    public interface IProductOptionService
+    public interface IProductOptionRepository
     {
         Task<IList<ProductOption>> GetAllProductOptionsByProductIdAsync(Guid productId);
 

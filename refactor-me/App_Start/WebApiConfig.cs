@@ -69,7 +69,11 @@ namespace refactor_me
             //Services
 
             builder.RegisterType<ProductService>().As<IProductService>();
+            builder.RegisterType<ProductOptionService>().As<IProductOptionService>();
+
+            //Repositories
             builder.RegisterType<ProductRepository>().As<IProductRepository>();
+            builder.RegisterType<ProductOptionRepository>().As<IProductOptionRepository>();
 
             var container = builder.Build();
             var csl = new AutofacServiceLocator(container);
